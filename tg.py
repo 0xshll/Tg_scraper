@@ -1,7 +1,7 @@
 import time
 from telethon import TelegramClient
 from telethon.errors import SessionPasswordNeededError
-from telethon.tl.functions.messages import InviteToChannelRequest
+from telethon.tl.functions.messages import AddChatUserRequest  # تم التعديل هنا لاستيراد AddChatUserRequest
 
 def print_menu():
     print("\nPlease choose an option:")
@@ -36,8 +36,8 @@ async def start_process(client):
 
         for participant in participants:
             try:
-                # محاولة نقل العضو
-                await client(InviteToChannelRequest(my_group, [participant]))
+                # دعوة العضو إلى الجروب باستخدام AddChatUserRequest
+                await client(AddChatUserRequest(my_group, participant.id))
                 print(f"Successfully added {participant.username or participant.id}")
                 time.sleep(2)  # تأخير لتجنب الحظر
             except Exception as e:
